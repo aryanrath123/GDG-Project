@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Login - HostelHub</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth__container">
+    <h2>Student Login</h2>
+    <p>Log in to view and manage your hostel bookings.</p>
+
+    <form id="studentLoginForm">
+      <div class="form__group">
+        <label for="studentEmail">Email</label>
+        <input type="email" id="studentEmail" required>
+      </div>
+      <div class="form__group">
+        <label for="studentPassword">Password</label>
+        <input type="password" id="studentPassword" required>
+      </div>
+      <button type="submit" class="btn btn--primary btn--block">Login</button>
+    </form>
+
+    <div class="auth__divider"><span>or</span></div>
+    <button id="studentGoogleSignIn" class="btn btn--outline btn--block">Login with Google</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('studentLoginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('studentEmail').value;
+      const password = document.getElementById('studentPassword').value;
+      try {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+        window.location.href = 'index.html';
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    document.getElementById('studentGoogleSignIn').addEventListener('click', async function() {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await firebase.auth().signInWithPopup(provider);
+        window.location.href = 'index.html';
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+</body>
+</html>
