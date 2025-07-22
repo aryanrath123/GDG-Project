@@ -29,7 +29,7 @@
 
 ## 📸 Screenshots
 
-> Add some UI screenshots here (drag images into this file or link externally)
+
 
 ---
 
